@@ -54,5 +54,11 @@ class ViewController: UIViewController {
             userIsTyping = true
         }
     }
+    
+    @IBAction func clearInput(_ sender: UIButton) {
+        userIsTyping = false
+        decimalCount = 0
+        display.text = "0"
+    }
 }
 
