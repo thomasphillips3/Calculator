@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var display: UILabel!
     var userIsTyping = false
+    var decimalCount = 0
     
     var displayValue: Double {
         get {
@@ -26,6 +27,7 @@ class ViewController: UIViewController {
         if userIsTyping {
             brain.setOperand(displayValue)
             userIsTyping = false
+            decimalCount = 0
         }
         
         if let mathematicalSymbol = sender.currentTitle {
@@ -39,6 +41,12 @@ class ViewController: UIViewController {
     @IBAction func touchDigit(_ sender: UIButton) {
         let digit = sender.currentTitle!
         if (userIsTyping) {
+            if digit == "." {
+                decimalCount += 1
+                if (decimalCount > 1){
+                    return
+                }
+            }
             let displayText = display.text!
             display.text = displayText + digit
         } else {
