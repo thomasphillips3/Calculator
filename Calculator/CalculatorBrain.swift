@@ -10,7 +10,6 @@ import Foundation
 
 struct CalculatorBrain {
     private var accumulator: Double?
-    var resultIsPending = false
     
     mutating func setOperand(_ operand: Double) {
         accumulator = operand
@@ -50,11 +49,9 @@ struct CalculatorBrain {
                 if nil != accumulator {
                     pendingBinaryOperation = PendingBinaryOperation(function: function, firstOperand: accumulator!)
                     accumulator = nil
-                    resultIsPending = true
                 }
             case .equals:
                 performPendingBinaryOperation()
-                resultIsPending = false
             }
         }
     }
@@ -76,10 +73,15 @@ struct CalculatorBrain {
     }
     
 
-    
     var result: Double? {
         get {
             return accumulator
+        }
+    }
+    
+    var resultIsPending: Bool {
+        get {
+            return nil != pendingBinaryOperation
         }
     }
 }
